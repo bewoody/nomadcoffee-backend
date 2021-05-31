@@ -6,7 +6,10 @@ const resolvers: Resolvers = {
   Query: {
     seeProfile: protectedResolver(
       (_, { username }: UsernameInput, { client }) =>
-        client.user.findUnique({ where: { username } })
+        client.user.findUnique({
+          where: { username },
+          include: { followers: true, following: true },
+        })
     ),
   },
 };
