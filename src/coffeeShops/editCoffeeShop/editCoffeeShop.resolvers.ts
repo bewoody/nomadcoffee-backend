@@ -46,9 +46,10 @@ const resolvers: Resolvers = {
             categoryObjs = extractCategories(category);
           }
           if (photos) {
-            photoObjs = photos.map((photo: any) => extractPhotos(photo));
+            photoObjs = await Promise.all(
+              photos.map((photo: any) => extractPhotos(photo))
+            );
           }
-          console.log(photoObjs);
           await client.coffeeShop.update({
             where: {
               id,
@@ -65,7 +66,6 @@ const resolvers: Resolvers = {
               }),
               ...(photoObjs.length > 0 && {
                 photos: {
-                  disconnect: oldCoffeeShop.photos,
                   createMany: {
                     data: photoObjs,
                   },
