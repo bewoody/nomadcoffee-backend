@@ -6,7 +6,10 @@
     "preinstall": "npx npm-force-resolutions@0.0.3",
     "dev": "nodemon --exec ts-node src/server --ext ts,js --delay 2",
     "migrate": "npx prisma migrate dev",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "prebuild": "rm -rf built",
+    "build": "tsc",
+    "start": "node built/server"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@babel/cli": "^7.14.3",
     "@prisma/client": "^2.23.0",
     "apollo-server": "^2.24.1",
     "apollo-server-express": "^2.24.1",
