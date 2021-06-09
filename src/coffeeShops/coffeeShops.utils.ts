@@ -1,7 +1,8 @@
 import { createWriteStream } from "fs";
 
-export const extractCategories = (category: [string]) =>
-  category.map((cate: string) => {
+export const extractCategories = (category: string) => {
+  const hashcategories = category.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w\s]+/g) || [];
+  return hashcategories.map((cate: string) => {
     const lowerStr = cate.toLowerCase().trim();
     return {
       where: {
@@ -13,6 +14,7 @@ export const extractCategories = (category: [string]) =>
       },
     };
   });
+};
 
 export const extractPhotos = async (photo: any) => {
   const { filename, createReadStream } = await photo;

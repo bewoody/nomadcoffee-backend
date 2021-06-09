@@ -13,6 +13,14 @@ const resolvers: Resolvers = {
         },
       }),
   },
+  CoffeeShop: {
+    isMine: ({ userId }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      return userId === loggedInUser.id;
+    },
+  },
 };
 
 export default resolvers;

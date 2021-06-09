@@ -5,7 +5,7 @@ export default gql`
     editCoffeeShop(
       id: Int!
       name: String
-      category: [String]
+      category: String
       latitude: String
       longitude: String
       photos: [Upload]
@@ -16,7 +16,7 @@ export default gql`
 export interface EditCoffeeShopInput {
   id: number;
   name?: string;
-  categroy?: [string];
+  categroy?: string;
   latitude?: string;
   longitude?: string;
   photos?: [any];

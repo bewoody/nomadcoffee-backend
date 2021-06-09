@@ -12,6 +12,9 @@ const resolvers: Resolvers = {
           photos: {
             select: { url: true },
           },
+          categories: {
+            select: { name: true },
+          },
         },
         orderBy: { createdAt: "desc" },
       }),

@@ -4,7 +4,7 @@ export default gql`
   type Mutation {
     createCoffeeShop(
       name: String!
-      category: [String]!
+      category: String!
       latitude: String
       longitude: String
       photos: [Upload]
@@ -14,7 +14,7 @@ export default gql`
 
 export interface CreateCoffeeShopInput {
   name: string;
-  category: [string];
+  category: string;
   latitude?: string;
   longitude?: string;
   photos?: [any];
