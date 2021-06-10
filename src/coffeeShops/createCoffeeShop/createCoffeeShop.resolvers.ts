@@ -1,7 +1,8 @@
 import { CoreOutput } from "../../shared/shared.typeDefs";
+import { uploadToS3 } from "../../shared/shared.utils";
 import { Resolvers } from "../../types";
 import { protectedResolver } from "../../users/users.utils";
-import { extractCategories, extractPhotos } from "../coffeeShops.utils";
+import { extractCategories } from "../coffeeShops.utils";
 import { CreateCoffeeShopInput } from "./createCoffeeShop.typeDefs";
 
 const resolvers: Resolvers = {
@@ -17,7 +18,10 @@ const resolvers: Resolvers = {
           let photoObj = [];
           if (photos) {
             photoObj = await Promise.all(
-              photos.map((photo: any) => extractPhotos(photo))
+              photos.map(
+                async (photo: any) =>
+                  await uploadToS3(photo, loggedInUser.id, "shops")
+              )
             );
           }
           await client.coffeeShop.create({

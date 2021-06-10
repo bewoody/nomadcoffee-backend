@@ -3,7 +3,7 @@ import { createWriteStream } from "fs";
 export const extractCategories = (category: string) => {
   const hashcategories = category.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w\s]+/g) || [];
   return hashcategories.map((cate: string) => {
-    const lowerStr = cate.toLowerCase().trim();
+    const lowerStr = cate.toLowerCase().trim().replace("#", "");
     return {
       where: {
         name: lowerStr,
