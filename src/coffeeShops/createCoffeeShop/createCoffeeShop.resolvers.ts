@@ -3,7 +3,10 @@ import { uploadToS3 } from "../../shared/shared.utils";
 import { Resolvers } from "../../types";
 import { protectedResolver } from "../../users/users.utils";
 import { extractCategories } from "../coffeeShops.utils";
-import { CreateCoffeeShopInput } from "./createCoffeeShop.typeDefs";
+import {
+  CreateCoffeeShopInput,
+  CreateCoffeeShopOutput,
+} from "./createCoffeeShop.typeDefs";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -12,7 +15,7 @@ const resolvers: Resolvers = {
         _,
         { name, category, latitude, longitude, photos }: CreateCoffeeShopInput,
         { client, loggedInUser }
-      ): Promise<CoreOutput> => {
+      ): Promise<CreateCoffeeShopOutput> => {
         try {
           const categoryObj = extractCategories(category);
           let photoObj = [];
@@ -24,7 +27,7 @@ const resolvers: Resolvers = {
               )
             );
           }
-          await client.coffeeShop.create({
+          const shop = await client.coffeeShop.create({
             data: {
               name,
               latitude,
@@ -50,6 +53,7 @@ const resolvers: Resolvers = {
           });
           return {
             ok: true,
+            coffeeShopId: shop.id,
           };
         } catch (error) {
           return {
