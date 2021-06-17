@@ -2,10 +2,10 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    searchCoffeeShop(keyword: String!): [CoffeeShop]
+    searchCoffeeShops(keyword: String!): [CoffeeShop]
   }
 `;
 
-export interface SearchCoffeeShopInput {
+export interface SearchCoffeeShopsInput {
   keyword: string;
 }

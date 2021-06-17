@@ -1,9 +1,9 @@
 import { Resolvers } from "../../types";
-import { SearchCoffeeShopInput } from "./searchCoffeeShop.typeDefs";
+import { SearchCoffeeShopsInput } from "./searchCoffeeShops.typeDefs";
 
 const resolvers: Resolvers = {
   Query: {
-    searchCoffeeShop: (_, { keyword }: SearchCoffeeShopInput, { client }) =>
+    searchCoffeeShops: (_, { keyword }: SearchCoffeeShopsInput, { client }) =>
       client.coffeeShop.findMany({ where: { name: { startsWith: keyword } } }),
   },
 };
