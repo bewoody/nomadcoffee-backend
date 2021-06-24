@@ -5,8 +5,32 @@ const resolvers: Resolvers = {
   Query: {
     searchCoffeeShops: (_, { keyword }: SearchCoffeeShopsInput, { client }) =>
       client.coffeeShop.findMany({
-        where: { name: { startsWith: keyword } },
-        include: { photos: { select: { url: true } } },
+        where: {
+          OR: [
+            { name: { contains: keyword } },
+            {
+              categories: {
+                some: {
+                  name: {
+                    contains: keyword,
+                  },
+                },
+              },
+            },
+          ],
+        },
+        include: {
+          photos: {
+            select: {
+              url: true,
+            },
+          },
+          categories: {
+            select: {
+              name: true,
+            },
+          },
+        },
       }),
   },
 };
