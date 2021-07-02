@@ -23,7 +23,11 @@ export const uploadToS3 = async (
       Body: readStream,
     })
     .promise();
-  return {
-    url: Location,
-  };
+  if (folderName === "shops") {
+    return {
+      url: Location,
+    };
+  } else {
+    return Location;
+  }
 };
